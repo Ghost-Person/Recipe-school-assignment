@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Welcome page</title>
+</head>
+<body>
+    <h1 class="text-center text-primary">Welcome {{user.first_name}}</h1>
+    <h4 class="text-center text primary">Your Recipes and Others</h4>
+    <a href="/addrecipe/page" class="offset 3 col-1 ">New recipe</a>
+    <a href="/logout">Log Out</a>
+</div>
+<div class="row">
+
+    <table class="table table-striped mx-auto text-center">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Under</th>
+                <th>Posted by</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for recipe in recipes %}
+                <tr>
+                    <td>{{recipe.name}}</td>
+                    <td>
+                        {% if recipe.thirty == 1 %}
+                            Yes
+                        {% else %}
+                            No
+                        {% endif %}
+                    </td>
+                    <td>{{recipe.author.first_name}}</td>
+                    <td>
+                        <a href="/recipes/{{recipe.id}}"> |Instructions| </a>
+                        {% if session['user_id'] == recipe.author.id %}
+                            <a href="/editpage/{{recipe.id}}"> |Edit| </a>
+                            <a href="/removerecipe/{{recipe.id}}"> |Delete| </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</div>
+</body>
+</html>

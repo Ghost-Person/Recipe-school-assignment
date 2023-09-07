@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <title>Edit Recipe</title>
+</head>
+<body>
+    <a href="/welcome"> |Back to Recipes| </a>
+    <a href="/logout"> |Logout| </a>
+    <div class="d-flex justify-content-around">
+    <form action="/editrecipe/{{recipe.id}}" method="post" class="col-4 p-4 border border-primary text-primary">
+            <h2>Your Recipe</h2>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <div class="text-danger">
+                        {% for message in messages %}
+                        <p>{{message}}</p>
+                        {% endfor %}
+                </div>
+                {% endif %}
+            {% endwith %}
+            <div class="form-group">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" name="name" class="form-control" value="{{recipe.name}}">
+            </div>
+            <div class="form-group">
+                <label for="description" class="form-label">Description:</label>
+                <textarea name="description" id="description" class="form-control">{{recipe.description}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="instructions" class="form-label">Instructions:</label>
+                <textarea name="instructions" id="instructions" class="form-control">{{recipe.instructions}}</textarea>
+                    
+            </div>
+            <div class="form-group">
+                <label for="date_made" class="form-label">Date Made:</label>
+                <input type="date" name="date_made" class="form-control" value="{{recipe.date_made}}">
+            </div>
+                <p class="form-label">Does it take under 30 Minutes?:</p>
+            <div class="form-check-inline">
+                <input type="radio" name="thirty" id="y_under30" value="1" class="form-check-input" {% if recipe.thirty == 1 %}checked{% endif %}>
+                <label for="y_under30" class="form-label">Yes</label>
+            </div>
+            <div class="form-check-inline">
+                <input type="radio" name="thirty" id="not_under_30" value="0" class="form-check-input" {% if recipe.thirty == 0 %}checked{% endif %}>
+                <label for="n_under30" class="form-label">No</label>
+            </div>
+        </div>
+                <input type="submit" value="Save" class="btn btn-primary">
+    </form>
+    </div>
+</body>
+</html>
